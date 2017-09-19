@@ -8,4 +8,4 @@ install: #dependencies
   - pip install .
 # command to run tests
 script:
-  - python ./tests/tests.py
+  - python ./tests/tests.py test

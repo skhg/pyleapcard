@@ -3,6 +3,8 @@
 
 import requests
 from bs4 import BeautifulSoup
+from . import CardEvent
+from . import CardOverview
 
 class LeapSession:
 
@@ -18,7 +20,7 @@ class LeapSession:
         self.__session.headers = headers
 
     def login_url(self):
-        return leap_website_url+"/en/login.aspx"
+        return self.leap_website_url+"/en/login.aspx"
 
     def try_login(self, user, passwd):
         
@@ -65,7 +67,7 @@ class LeapSession:
             return False
 
     def get_card_overview(self):
-        card_overview_url = leap_website_url+"/en/SelfServices/CardServices/CardOverView.aspx"
+        card_overview_url = self.leap_website_url+"/en/SelfServices/CardServices/CardOverView.aspx"
         overview_page = self.__session.get(card_overview_url)
         overview_soup = BeautifulSoup(overview_page.content,"html.parser")
         
@@ -116,7 +118,7 @@ class LeapSession:
         return events
 
     def get_events(self):
-        journey_history_url = leap_website_url+"/en/SelfServices/CardServices/ViewJourneyHistory.aspx"
+        journey_history_url = self.leap_website_url+"/en/SelfServices/CardServices/ViewJourneyHistory.aspx"
         journeys_page = self.__session.get(journey_history_url)
         journeys_soup = BeautifulSoup(journeys_page.content,"html.parser")
         
