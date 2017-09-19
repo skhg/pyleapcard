@@ -11,6 +11,12 @@ class CardOverview:
     def card_info(self):
         return self.__card_num+" (" + self.__card_name + ")"
     
+    def card_name(self):
+        return self.__card_name
+
+    def card_number(self):
+        return self.__card_num
+        
     def balance(self):
         balance_string =u""
         negative_balance = False
