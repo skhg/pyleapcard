@@ -23,7 +23,8 @@ class LeapSession:
         return self.leap_website_url+"/en/login.aspx"
 
     def __handle_login_response(self, login_result, user):
-        if "<span id=\"LoginName1\">"+user+"</span>" in login_result.content:
+        expectedLoginString = "<span id=\"LoginName1\">"+user+"</span>"
+        if expectedLoginString.encode() in login_result.content:
             return True
         elif "Your credentials are incorrect." in login_result.content:
             raise IOError("Your credentials are incorrect.")
@@ -126,7 +127,7 @@ class LeapSession:
             if "Top-Up" in j_event_type:
                 was_topup = True
             
-            events.append(CardEvent(j_date,j_time,j_provider,j_value,was_topup))
+            events.append(CardEvent(j_date, j_time, j_provider, j_value, j_event_type, was_topup))
             
         return events
 
@@ -136,4 +137,4 @@ class LeapSession:
         journeys_soup = BeautifulSoup(journeys_page.content,"html.parser")
         
         journeys_table = journeys_soup.find(id="gvCardJourney")
-        return __extract_event_details__(journeys_table)
+        return self.__extract_event_details__(journeys_table)
