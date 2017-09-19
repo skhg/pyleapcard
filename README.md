@@ -62,7 +62,7 @@ for item in events:
  ```
  
  ## Tests
- `python ./tests/tests.py test`
+ `python ./tests/tests.py`
  
  ## Contributing
  Fork this repo, make some changes and create a new pull request!
