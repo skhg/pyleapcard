@@ -2,14 +2,10 @@
 
 from distutils.core import setup
 
-def readme():
-    with open('README.md') as f:
-        return f.read()
-
 setup(name='pyleapcard',
-      version='0.1.1',
+      version='0.1.2',
       description='Python Leap Card API',
-      long_description=readme(),
+      long_description='See project page with usage examples at https://github.com/skhg/pyleapcard',
       keywords='leap card public transport smart card api travel ireland',
       author='Jack Higgins',
       author_email='pypi@jackhiggins.ie',
