@@ -5,10 +5,13 @@ import requests
 from bs4 import BeautifulSoup
 from . import CardEvent
 from . import CardOverview
+import re
 
 class LeapSession:
 
     def __init__(self):
+        self.__non_decimal = re.compile(r'[^\d.-]+')
+
         self.leap_website_url = "https://www.leapcard.ie"
         self.__session = requests.session()
 
@@ -118,7 +121,8 @@ class LeapSession:
             
             j_provider = cells[2].get_text(strip=True)
             
-            j_value = cells[4].get_text()
+            j_valueAsString = cells[4].get_text()
+            j_value = float(self.__non_decimal.sub('', j_valueAsString))
             
             j_event_type = cells[3].get_text(strip=True)
                     
