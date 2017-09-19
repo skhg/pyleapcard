@@ -22,6 +22,14 @@ class LeapSession:
     def login_url(self):
         return self.leap_website_url+"/en/login.aspx"
 
+    def __handle_login_response(self, login_result, user):
+        if "<span id=\"LoginName1\">"+user+"</span>" in login_result.content:
+            return True
+        elif "Your credentials are incorrect." in login_result.content:
+            raise IOError("Your credentials are incorrect.")
+        else:
+            raise IOError("Unknown error.")
+
     def try_login(self, user, passwd):
         
         login_send_url = self.login_url()
@@ -54,17 +62,18 @@ class LeapSession:
                          'AjaxScriptManager_HiddenField'      : '',
                          '_URLLocalization_Var001'            : False }
             
-            login_result= self.__session.post(login_send_url, data = login_details)
-            
-            if "<span id=\"LoginName1\">"+user+"</span>" in login_result.content:
-                return True
-            elif "Your credentials are incorrect." in login_result.content:
-                raise IOError("Your credentials are incorrect.")
-            else:
-                raise IOError("Unknown error.")
+            login_response= self.__session.post(login_send_url, data = login_details)
+            return self.__handle_login_response(login_response, user)
+
         except requests.exceptions.ConnectionError:
             # The most likely failure case is that we're offline so fail gracefully here
             return False
+
+    def __get_standard_overview_field_by_name(self, overview_soup, field_name):
+        field_label = overview_soup.find(text=field_name)
+        field_row = field_label.parent.parent.parent
+        field_value = field_row.select("div")[1].get_text(strip=True)
+        return field_value
 
     def get_card_overview(self):
         card_overview_url = self.leap_website_url+"/en/SelfServices/CardServices/CardOverView.aspx"
@@ -76,16 +85,20 @@ class LeapSession:
         balance_cell = balance_row.findChild("div",{"class":"pull-left"})
         current_balance = float(balance_cell.text)
         
-        cardnum_label = overview_soup.find(text="Card Number")
-        cardnum_row = cardnum_label.parent.parent.parent
-        card_number = str(cardnum_row.select("div")[1].get_text(strip=True))
-        
+        card_number = self.__get_standard_overview_field_by_name(overview_soup, "Card Number")
+        card_type = self.__get_standard_overview_field_by_name(overview_soup, "Card Type")
+        card_status = self.__get_standard_overview_field_by_name(overview_soup, "Card Status")
+        credit_status = self.__get_standard_overview_field_by_name(overview_soup, "Travel Credit Status")
+        auto_topup = self.__get_standard_overview_field_by_name(overview_soup, "Auto Top-Up")
+        issue_date = self.__get_standard_overview_field_by_name(overview_soup, "Card Issue Date")
+        expiry_date = self.__get_standard_overview_field_by_name(overview_soup, "Card Expiry Date")
+
         cardname_label = overview_soup.find(text="Card Label")
         cardname_row = cardname_label.parent.parent.parent
         cardname_row.select("div")[1].select("span")[0].decompose() #delete a messy <span> tag
         card_name = cardname_row.select("div")[1].get_text(strip=True)
         
-        return CardOverview(card_number,card_name,current_balance)
+        return CardOverview(card_number, card_name, current_balance, card_type, card_status, credit_status, auto_topup, issue_date, expiry_date)
 
     def __extract_event_details__(self, journeys_table):
         events = []
