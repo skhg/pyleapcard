@@ -7,7 +7,7 @@ def readme():
         return f.read()
 
 setup(name='pyleapcard',
-      version='0.1.0',
+      version='0.1.1',
       description='Python Leap Card API',
       long_description=readme(),
       keywords='leap card public transport smart card api travel ireland',
