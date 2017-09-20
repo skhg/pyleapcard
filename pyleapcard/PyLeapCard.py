@@ -27,9 +27,11 @@ class LeapSession:
 
     def __handle_login_response(self, login_result, user):
         expectedLoginString = "<span id=\"LoginName1\">"+user+"</span>"
+        loginFailedString = "Your credentials are incorrect."
+
         if expectedLoginString.encode() in login_result.content:
             return True
-        elif "Your credentials are incorrect." in login_result.content:
+        elif loginFailedString.encode() in login_result.content:
             raise IOError("Your credentials are incorrect.")
         else:
             raise IOError("Unknown error.")
