@@ -81,9 +81,7 @@ class LeapSession:
         field_value = field_row.select("div")[1].get_text(strip=True)
         return field_value
 
-    def get_card_overview(self):
-        card_overview_url = self.leap_website_url+"/en/SelfServices/CardServices/CardOverView.aspx"
-        overview_page = self.__session.get(card_overview_url)
+    def __handle_card_overview_response(self, overview_page):
         overview_soup = BeautifulSoup(overview_page.content,"html.parser")
         
         balance_label = overview_soup.find(text="Travel Credit Balance (€)")
@@ -105,6 +103,12 @@ class LeapSession:
         card_name = cardname_row.select("div")[1].get_text(strip=True)
         
         return CardOverview(card_number, card_name, current_balance, card_type, card_status, credit_status, auto_topup, issue_date, expiry_date)
+
+    def get_card_overview(self):
+        card_overview_url = self.leap_website_url+"/en/SelfServices/CardServices/CardOverView.aspx"
+        overview_page = self.__session.get(card_overview_url)
+        
+        return self.__handle_card_overview_response(overview_page)
 
     def __extract_event_details__(self, journeys_table):
         events = []
@@ -137,10 +141,15 @@ class LeapSession:
             
         return events
 
-    def get_events(self):
-        journey_history_url = self.leap_website_url+"/en/SelfServices/CardServices/ViewJourneyHistory.aspx"
-        journeys_page = self.__session.get(journey_history_url)
+    def __handle_events_response(self, journeys_page):
         journeys_soup = BeautifulSoup(journeys_page.content,"html.parser")
         
         journeys_table = journeys_soup.find(id="gvCardJourney")
         return self.__extract_event_details__(journeys_table)
+
+    def get_events(self):
+        journey_history_url = self.leap_website_url+"/en/SelfServices/CardServices/ViewJourneyHistory.aspx"
+        journeys_page = self.__session.get(journey_history_url)
+        return self.__handle_events_response(journeys_page)
+        
+        
