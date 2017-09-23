@@ -5,6 +5,8 @@ A Python API for accessing your current card balance and stats for Ireland's pub
 * Get your credit balance and card status information
 * Get a list of your recent trips & topups
 
+For an example of this in use, see my [Leap Card BitBar plugin](https://github.com/skhg/BitBar-Plugins/tree/master/LeapCard)
+
 ## Installation
 `pip install pyleapcard`
 
