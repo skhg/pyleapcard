@@ -12,18 +12,17 @@ setup(name='pyleapcard',
       url='https://github.com/skhg/pyleapcard',
       packages=['pyleapcard'],
       install_requires=[
-          'requests',
-          'bs4'
+        'requests',
+        'bs4'
       ],
-      tests_require = [
-	  	'mock',
-	    'nose',
-	    ],
+      tests_require=[
+        'mock',
+        'nose',
+      ],
       license='MIT',
       classifiers=[
-          'Development Status :: 4 - Beta',
-          'License :: OSI Approved :: MIT License',
-          'Programming Language :: Python :: 2.7',
-          'Programming Language :: Python :: 3.6',
-      ]
+        'Development Status :: 4 - Beta',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.6']
       )

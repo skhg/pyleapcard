@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
 class CardEvent:
-    
+
     def __init__(self, date, time, provider, price, event_type, was_topup):
         self.date = date
         self.time = time
