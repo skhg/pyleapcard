@@ -25,10 +25,10 @@ class LeapSession:
         self.__session.headers = headers
 
     def login_url(self):
-        return self.leap_website_url+"/en/login.aspx"
+        return self.leap_website_url + "/en/login.aspx"
 
     def __handle_login_response(self, login_result, user):
-        expectedLoginString = "<span id=\"LoginName1\">"+user+"</span>"
+        expectedLoginString = "<span id=\"LoginName1\">" + user + "</span>"
         loginFailedString = "Your credentials are incorrect."
 
         if expectedLoginString.encode() in login_result.content:
@@ -107,7 +107,7 @@ class LeapSession:
         return CardOverview(card_number, card_name, current_balance, card_type, card_status, credit_status, auto_topup, issue_date, expiry_date)
 
     def get_card_overview(self):
-        card_overview_url = self.leap_website_url+"/en/SelfServices/CardServices/CardOverView.aspx"
+        card_overview_url = self.leap_website_url + "/en/SelfServices/CardServices/CardOverView.aspx"
         overview_page = self.__session.get(card_overview_url)
 
         return self.__handle_card_overview_response(overview_page)
@@ -150,6 +150,6 @@ class LeapSession:
         return self.__extract_event_details__(journeys_table)
 
     def get_events(self):
-        journey_history_url = self.leap_website_url+"/en/SelfServices/CardServices/ViewJourneyHistory.aspx"
+        journey_history_url = self.leap_website_url + "/en/SelfServices/CardServices/ViewJourneyHistory.aspx"
         journeys_page = self.__session.get(journey_history_url)
         return self.__handle_events_response(journeys_page)

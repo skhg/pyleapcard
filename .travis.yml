@@ -11,4 +11,4 @@ install:
 script:
   - coverage run ./tests/tests.py
   - codecov
-  - flake8
+  - flake8 --ignore=E501  # ignore "line too long errors"

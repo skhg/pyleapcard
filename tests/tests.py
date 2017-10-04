@@ -25,7 +25,7 @@ class TestLoginMethod(unittest.TestCase):
     def test_handle_login_response_wrong_credentials_throws(self):
         session = LeapSession()
 
-        with(open(pickledir+"failed_login_result.dat", "rb")) as f:
+        with(open(pickledir + "failed_login_result.dat", "rb")) as f:
             failed_login = pickle.load(f)
 
             with self.assertRaises(IOError) as context:
@@ -53,7 +53,7 @@ class TestEventsMethod(unittest.TestCase):
     def test_calls_events_returns_expected(self):
         session = LeapSession()
 
-        with(open(pickledir+"journeys_page.dat", "rb")) as f:
+        with(open(pickledir + "journeys_page.dat", "rb")) as f:
             page = pickle.load(f)
             result = session._LeapSession__handle_events_response(page)
 
