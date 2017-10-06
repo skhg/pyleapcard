@@ -14,6 +14,5 @@ script:
   - codecov
   - flake8 --ignore=E501  # ignore "line too long errors"
   - radon cc ./pyleapcard/ -a 
-  - radom mi .
+  - radon mi .
   - radon raw . -s
-  
