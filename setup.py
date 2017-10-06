@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='pyleapcard',
-    version='0.1.3',
+    version='0.1.4',
     description='Python Leap Card API',
     long_description='See project page with usage examples at https://github.com/skhg/pyleapcard',
     keywords='leap card public transport smart card api travel ireland',
