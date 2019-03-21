@@ -88,7 +88,7 @@ class LeapSession:
 
         balance_label = overview_soup.find(text="Travel Credit Balance (€)")
         balance_row = balance_label.parent.parent.parent
-        balance_cell = balance_row.findChild("div", {"class": "pull-left"})
+        balance_cell = balance_row.findChild("div", {"class": "float-left"})
         current_balance = float(balance_cell.text)
 
         card_number = self.__get_standard_overview_field_by_name(overview_soup, "Card Number")
