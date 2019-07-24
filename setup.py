@@ -3,15 +3,15 @@
 from distutils.core import setup
 
 setup(
-    name='pyleapcard',
-    version='0.1.4',
+    name='PyLeapCardAPI',
+    version='0.0.1',
     description='Python Leap Card API',
-    long_description='See project page with usage examples at https://github.com/skhg/pyleapcard',
-    keywords='leap card public transport smart card api travel ireland',
-    author='Jack Higgins',
-    author_email='pypi@jackhiggins.ie',
-    url='https://github.com/skhg/pyleapcard',
-    packages=['pyleapcard'],
+    long_description='https://github.com/xt16johnny/pyleapcardapi for more details',
+    keywords='leap card public transport smart card api travel ireland dublin home assistant hass',
+    author='Johnny Moore',
+    author_email='xt16.johnny+pypi@googlemail.com',
+    url='https://github.com/xt16johnny/pyleapcardapi',
+    packages=['pyleapcardapi'],
     install_requires=[
         'requests',
         'bs4'
