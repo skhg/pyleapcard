@@ -103,3 +103,5 @@ ENV/
 submit_pypi.sh
 
 tryrun.sh
+.idea/
+
