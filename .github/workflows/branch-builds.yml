@@ -39,7 +39,6 @@ jobs:
 
       - name: Run flake8
         run: |
-#ignore "line too long errors"
           flake8 --ignore=E501
 
       - name: Run radon
