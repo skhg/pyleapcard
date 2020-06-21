@@ -31,3 +31,19 @@ jobs:
           pip install codecov
           pip install flake8
           pip install radon
+
+      - name: Run code coverage
+        run: |
+          coverage run ./tests/tests.py
+          codecov
+
+      - name: Run flake8
+        run: |
+#ignore "line too long errors"
+          flake8 --ignore=E501
+
+      - name: Run radon
+        run: |
+          radon cc ./pyleapcard/ -a
+          radon mi .
+          radon raw . -s
