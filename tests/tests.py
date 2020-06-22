@@ -3,6 +3,7 @@ from pyleapcard import LeapSession, CardOverview
 
 sampledatadir = "./tests/sampledata/"
 
+
 class TestLoginMethod(unittest.TestCase):
 
     def test_handle_login_response_good_response_returns_true(self):
@@ -36,7 +37,8 @@ class TestOverviewMethod(unittest.TestCase):
             page = f.read()
             result = session._LeapSession__handle_card_overview_response(page)
 
-            expected = CardOverview(u"1000000000", u"User's Card", 25.02, u"Adult", u"Unblocked", u"Unblocked", u"Not Enabled", u"02/04/2012 12:00:00 AM", u"09/12/2023 12:00:00 AM")
+            expected = CardOverview(u"1000000000", u"User's Card", 25.02, u"Adult", u"Unblocked", u"Unblocked",
+                                    u"Not Enabled", u"02/04/2012 12:00:00 AM", u"09/12/2023 12:00:00 AM")
 
             self.assertEqual(result.__dict__, expected.__dict__)
 
