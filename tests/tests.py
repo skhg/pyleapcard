@@ -1,4 +1,5 @@
 import unittest
+import sys
 from pyleapcard import LeapSession, CardOverview
 
 sampledatadir = "./tests/sampledata/"
@@ -56,7 +57,11 @@ class TestEventsMethod(unittest.TestCase):
             for item in result:
                 resultStr += str(item.__dict__)
 
-            expected = "{'date': '11/02/2020', 'time': '6:02 PM', 'provider': 'Bus Eireann', 'price': -1.96, 'event_type': 'Travel Credit Deduction', 'was_topup': False}{'date': '08/02/2020', 'time': '8:30 PM', 'provider': 'Bus Eireann', 'price': -1.96, 'event_type': 'Travel Credit Deduction', 'was_topup': False}{'date': '08/02/2020', 'time': '12:50 PM', 'provider': 'Leap Top-Up App', 'price': 20.0, 'event_type': 'Travel Credit Top-Up', 'was_topup': True}{'date': '05/07/2019', 'time': '6:22 PM', 'provider': 'Bus Eireann', 'price': -1.96, 'event_type': 'Travel Credit Deduction', 'was_topup': False}"
+            expected = ""
+            if sys.version_info[0] < 3:
+                expected = "{'event_type': u'Travel Credit Deduction', 'price': -1.96, 'time': u'6:02 PM', 'was_topup': False, 'provider': u'Bus Eireann', 'date': u'11/02/2020'}{'event_type': u'Travel Credit Deduction', 'price': -1.96, 'time': u'8:30 PM', 'was_topup': False, 'provider': u'Bus Eireann', 'date': u'08/02/2020'}{'event_type': u'Travel Credit Top-Up', 'price': 20.0, 'time': u'12:50 PM', 'was_topup': True, 'provider': u'Leap Top-Up App', 'date': u'08/02/2020'}{'event_type': u'Travel Credit Deduction', 'price': -1.96, 'time': u'6:22 PM', 'was_topup': False, 'provider': u'Bus Eireann', 'date': u'05/07/2019'}"
+            else:
+                expected = "{'date': '11/02/2020', 'time': '6:02 PM', 'provider': 'Bus Eireann', 'price': -1.96, 'event_type': 'Travel Credit Deduction', 'was_topup': False}{'date': '08/02/2020', 'time': '8:30 PM', 'provider': 'Bus Eireann', 'price': -1.96, 'event_type': 'Travel Credit Deduction', 'was_topup': False}{'date': '08/02/2020', 'time': '12:50 PM', 'provider': 'Leap Top-Up App', 'price': 20.0, 'event_type': 'Travel Credit Top-Up', 'was_topup': True}{'date': '05/07/2019', 'time': '6:22 PM', 'provider': 'Bus Eireann', 'price': -1.96, 'event_type': 'Travel Credit Deduction', 'was_topup': False}"
 
             self.assertEqual(resultStr, expected)
 
