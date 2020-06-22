@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
+from setuptools import setup
 from os import path
 
 this_directory = path.abspath(path.dirname(__file__))
@@ -11,7 +11,8 @@ setup(
     name='pyleapcard',
     version='0.0.0',
     description='Python Leap Card API',
-    long_description='See project page with usage examples at https://github.com/skhg/pyleapcard',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     keywords='leap card public transport smart card api travel ireland',
     author='Jack Higgins',
     author_email='pypi@jackhiggins.ie',
