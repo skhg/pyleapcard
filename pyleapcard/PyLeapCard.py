@@ -27,13 +27,13 @@ class LeapSession:
     def login_url(self):
         return self.leap_website_url + "/en/login.aspx"
 
-    def __handle_login_response(self, login_result, user):
+    def __handle_login_response(self, login_result_content, user):
         expectedLoginString = "<span id=\"LoginName1\">" + user + "</span>"
         loginFailedString = "Your credentials are incorrect."
 
-        if expectedLoginString.encode() in login_result.content:
+        if expectedLoginString.encode() in login_result_content:
             return True
-        elif loginFailedString.encode() in login_result.content:
+        elif loginFailedString.encode() in login_result_content:
             raise IOError("Your credentials are incorrect.")
         else:
             raise IOError("Unknown error.")
@@ -71,7 +71,7 @@ class LeapSession:
                 '_URLLocalization_Var001': False}
 
             login_response = self.__session.post(login_send_url, data=login_details)
-            return self.__handle_login_response(login_response, user)
+            return self.__handle_login_response(login_response.content, user)
 
         except requests.exceptions.ConnectionError:
             # The most likely failure case is that we're offline so fail gracefully here
@@ -83,8 +83,8 @@ class LeapSession:
         field_value = field_row.select("div")[1].get_text(strip=True)
         return field_value
 
-    def __handle_card_overview_response(self, overview_page):
-        overview_soup = BeautifulSoup(overview_page.content, "html.parser")
+    def __handle_card_overview_response(self, overview_page_content):
+        overview_soup = BeautifulSoup(overview_page_content, "html.parser")
 
         balance_label = overview_soup.find(text="Travel Credit Balance (€)")
         balance_row = balance_label.parent.parent.parent
@@ -110,16 +110,13 @@ class LeapSession:
         card_overview_url = self.leap_website_url + "/en/SelfServices/CardServices/CardOverView.aspx"
         overview_page = self.__session.get(card_overview_url)
 
-        return self.__handle_card_overview_response(overview_page)
+        return self.__handle_card_overview_response(overview_page.content)
 
     def __extract_event_details__(self, journeys_table):
         events = []
 
         journey_rows = journeys_table.select("tr")
         journey_rows.pop(0)  # remove first row- header
-
-        journey_rows.pop(len(journey_rows) - 1)
-        journey_rows.pop(len(journey_rows) - 1)  # remove last 2 rows - just links
 
         for row in journey_rows:
             cells = row.select("td")
@@ -143,8 +140,8 @@ class LeapSession:
 
         return events
 
-    def __handle_events_response(self, journeys_page):
-        journeys_soup = BeautifulSoup(journeys_page.content, "html.parser")
+    def __handle_events_response(self, journeys_page_content):
+        journeys_soup = BeautifulSoup(journeys_page_content, "html.parser")
 
         journeys_table = journeys_soup.find(id="gvCardJourney")
         return self.__extract_event_details__(journeys_table)
@@ -152,4 +149,4 @@ class LeapSession:
     def get_events(self):
         journey_history_url = self.leap_website_url + "/en/SelfServices/CardServices/ViewJourneyHistory.aspx"
         journeys_page = self.__session.get(journey_history_url)
-        return self.__handle_events_response(journeys_page)
+        return self.__handle_events_response(journeys_page.content)
