@@ -53,7 +53,7 @@ jobs:
       - name: "PyPi release"
         run: |
           python setup.py sdist
-          twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+          twine upload --non-interactive --repository-url https://test.pypi.org/legacy/ dist/*
         env:
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
