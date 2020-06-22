@@ -48,3 +48,13 @@ jobs:
           radon cc ./pyleapcard/ -a
           radon mi .
           radon raw . -s
+
+# todo remove below after tested
+
+      - name: "PyPi release"
+        run: |
+          python setup.py sdist
+          twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+        env:
+          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
