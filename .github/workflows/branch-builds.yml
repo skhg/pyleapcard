@@ -31,7 +31,6 @@ jobs:
           pip install codecov
           pip install flake8
           pip install radon
-# remove later
           pip install twine
 
       - name: Run code coverage
@@ -50,8 +49,6 @@ jobs:
           radon cc ./pyleapcard/ -a
           radon mi .
           radon raw . -s
-
-# todo remove below after tested
 
       - name: "PyPi release"
         run: |
