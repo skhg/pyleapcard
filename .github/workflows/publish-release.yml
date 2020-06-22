@@ -20,7 +20,7 @@ jobs:
 
       - name: "Replace version string with release number"
         run: |
-          sed -i "s/0.0.0/$VERSION_REF/g" setup.py
+          sed -i "s/0.0.0/${VERSION_REF##*/}/g" setup.py
         env:
           VERSION_REF: ${{ github.ref }}
 
