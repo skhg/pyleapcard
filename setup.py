@@ -10,7 +10,8 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name='pyleapcard',
     version='0.0.0',
-    description='Python Leap Card API',
+    description="Python Leap Card API (Unofficial). Access your card balance and journey history for Ireland's public "
+                "transport smart card.",
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords='leap card public transport smart card api travel ireland',
