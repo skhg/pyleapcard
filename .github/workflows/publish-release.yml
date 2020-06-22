@@ -34,6 +34,7 @@ jobs:
       - name: "PyPi release"
         run: |
           python setup.py sdist
+          twine check dist/*
           twine upload dist/*
         env:
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
