@@ -29,6 +29,7 @@ jobs:
           pip install .
           pip install codecov
           pip install flake8
+          pip install flake8-polyfill
           pip install radon
 
       - name: "Run code coverage"
