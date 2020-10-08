@@ -82,7 +82,7 @@ class TestEventsMethod(unittest.TestCase):
 
         with(open(sampledatadir + "journeys_page_invalid_account.html", "r")) as f:
             page = f.read()
-            
+
             with self.assertRaises(Exception) as context:
                 session._LeapSession__handle_events_response(page)
 
