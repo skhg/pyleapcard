@@ -43,6 +43,18 @@ class TestOverviewMethod(unittest.TestCase):
 
             self.assertEqual(result.__dict__, expected.__dict__)
 
+    def test_calls_overview_system_error_throws(self):
+        session = LeapSession()
+
+        with(open(sampledatadir + "overview_page_invalid_account.html", "r")) as f:
+            page = f.read()
+
+            with self.assertRaises(Exception) as context:
+                session._LeapSession__handle_card_overview_response(page)
+
+            expected = Exception("System Error", "The application experienced unexpected problems completing your request (Code E002). We're sorry for the inconvenience. Please try again later.")
+            self.assertEqual(str(context.exception), str(expected))
+
 
 class TestEventsMethod(unittest.TestCase):
 
@@ -64,6 +76,18 @@ class TestEventsMethod(unittest.TestCase):
                 expected = "{'date': '11/02/2020', 'time': '6:02 PM', 'provider': 'Bus Eireann', 'price': -1.96, 'event_type': 'Travel Credit Deduction', 'was_topup': False}{'date': '08/02/2020', 'time': '8:30 PM', 'provider': 'Bus Eireann', 'price': -1.96, 'event_type': 'Travel Credit Deduction', 'was_topup': False}{'date': '08/02/2020', 'time': '12:50 PM', 'provider': 'Leap Top-Up App', 'price': 20.0, 'event_type': 'Travel Credit Top-Up', 'was_topup': True}{'date': '05/07/2019', 'time': '6:22 PM', 'provider': 'Bus Eireann', 'price': -1.96, 'event_type': 'Travel Credit Deduction', 'was_topup': False}"
 
             self.assertEqual(resultStr, expected)
+
+    def test_calls_events_system_error_throws(self):
+        session = LeapSession()
+
+        with(open(sampledatadir + "journeys_page_invalid_account.html", "r")) as f:
+            page = f.read()
+            
+            with self.assertRaises(Exception) as context:
+                session._LeapSession__handle_events_response(page)
+
+            expected = Exception("System Error", "The application experienced unexpected problems completing your request (Code E002). We're sorry for the inconvenience. Please try again later.")
+            self.assertEqual(str(context.exception), str(expected))
 
 
 if __name__ == '__main__':

@@ -16,6 +16,7 @@ class LeapSession:
 
         self.leap_website_url = "https://www.leapcard.ie"
         self.__session = requests.session()
+        self.system_error_title = "System Error"
 
         headers = {'Connection': 'keep-alive',
                    'Accept-Encoding': 'gzip, deflate',
@@ -83,8 +84,16 @@ class LeapSession:
         field_value = field_row.select("div")[1].get_text(strip=True)
         return field_value
 
+    def __find_system_errors(self, overview_soup):
+        system_error = overview_soup.find(text=self.system_error_title)
+        if system_error:
+            error_reason = system_error.parent.parent.parent.findChild("label", {"class": "SubscribeErrorMsg"})
+            raise Exception(self.system_error_title, error_reason.text)
+
     def __handle_card_overview_response(self, overview_page_content):
         overview_soup = BeautifulSoup(overview_page_content, "html.parser")
+
+        self.__find_system_errors(overview_soup)
 
         balance_label = overview_soup.find(text="Travel Credit Balance (€)")
         balance_row = balance_label.parent.parent.parent
@@ -142,6 +151,8 @@ class LeapSession:
 
     def __handle_events_response(self, journeys_page_content):
         journeys_soup = BeautifulSoup(journeys_page_content, "html.parser")
+
+        self.__find_system_errors(journeys_soup)
 
         journeys_table = journeys_soup.find(id="gvCardJourney")
         return self.__extract_event_details__(journeys_table)
