@@ -16,7 +16,7 @@ class LeapSession:
 
         self.leap_website_url = "https://www.leapcard.ie"
         self.__session = requests.session()
-        self.system_error_title = "System Error"
+        self.system_error_title = u"System Error"
 
         headers = {'Connection': 'keep-alive',
                    'Accept-Encoding': 'gzip, deflate',

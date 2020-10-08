@@ -86,7 +86,7 @@ class TestEventsMethod(unittest.TestCase):
             with self.assertRaises(Exception) as context:
                 session._LeapSession__handle_events_response(page)
 
-            expected = Exception("System Error", "The application experienced unexpected problems completing your request (Code E002). We're sorry for the inconvenience. Please try again later.")
+            expected = Exception(u"System Error", u"The application experienced unexpected problems completing your request (Code E002). We're sorry for the inconvenience. Please try again later.")
             self.assertEqual(str(context.exception), str(expected))
 
 
