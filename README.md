@@ -1,11 +1,14 @@
 # pyleapcard
-[![PyPI](https://img.shields.io/pypi/v/pyleapcard.svg)](https://pypi.python.org/pypi/pyleapcard/) [![codecov](https://codecov.io/gh/skhg/pyleapcard/branch/master/graph/badge.svg)](https://codecov.io/gh/skhg/pyleapcard)
+[![PyPI](https://img.shields.io/pypi/v/pyleapcard.svg)](https://pypi.python.org/pypi/pyleapcard/) [![codecov](https://codecov.io/gh/skhg/pyleapcard/branch/master/graph/badge.svg)](https://codecov.io/gh/skhg/pyleapcard) ![PyPI - Downloads](https://img.shields.io/pypi/dm/pyleapcard)
 
 A Python API for accessing your current card balance and stats for Ireland's public transport [Leap Card](https://www.leapcard.ie/). This is an unoffical API and the author/contributors are in no way connected to Leap Card, Transport for Ireland, or any other agency. The API provides methods to:
 * Get your credit balance and card status information
 * Get a list of your recent trips & topups
 
 For an example of this in use, see my [Leap Card BitBar plugin](https://github.com/skhg/BitBar-Plugins/tree/master/LeapCard)
+
+## Prerequisites
+You need a [TfI](https://www.transportforireland.ie/) ID which you can use to login to a working [leapcard.ie](https://www.leapcard.ie/) account. You also need at least one active Leap Card associated with your account, in order to be able to get any useful data. Before using this library, please verify that you can log in successfully to your Leap Card account using your web browser.
 
 ## Installation
 `pip install pyleapcard`
@@ -66,5 +69,10 @@ for item in events:
  ## Tests
  `python ./tests/tests.py`
  
+## Troubleshooting
+This library attempts to give helpful error messages, but can't cover all cases. If something isn't working, the first step is usually to use your browser to ensure that you can login to the Leap Card website manually using the same credentials. If this works, then it might be the case that the Leap Card website itself has changed, and the web scraping code in this library no longer works. This is likely to occur over time as the website is updated.
+
+If you wish, you can report an issue with details of the problem, what you've tried to do to fix it, and your intuition on what might be the root cause.
+ 
  ## Contributing
- Fork this repo, make some changes and create a new pull request!
+ Fork this repo, make some changes and create a new pull request! All contributions and shared efforts are appreciated.
