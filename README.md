@@ -1,6 +1,10 @@
 # pyleapcard
 [![PyPI](https://img.shields.io/pypi/v/pyleapcard.svg)](https://pypi.python.org/pypi/pyleapcard/) [![codecov](https://codecov.io/gh/skhg/pyleapcard/branch/master/graph/badge.svg)](https://codecov.io/gh/skhg/pyleapcard) ![PyPI - Downloads](https://img.shields.io/pypi/dm/pyleapcard)
 
+## Login Flow bug (December 2020)
+As of December 2020, the login flow has changed, to use a Microsoft Azure SSO provider. This has broken the old login flow, so this library currently does not work. See [issue 20](https://github.com/skhg/pyleapcard/issues/20) for details. If anyone can suggest a fix, it would be appreciated.
+
+## About
 A Python API for accessing your current card balance and stats for Ireland's public transport [Leap Card](https://www.leapcard.ie/). This is an unoffical API and the author/contributors are in no way connected to Leap Card, Transport for Ireland, or any other agency. The API provides methods to:
 * Get your credit balance and card status information
 * Get a list of your recent trips & topups
